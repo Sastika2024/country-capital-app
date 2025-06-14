@@ -14,20 +14,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                 bat 'pip install -r requirements.txt'
             }
         }
 
         stage('Start Flask App') {
             steps {
-                sh 'nohup python app.py &'
-                sleep time: 5, unit: 'SECONDS'
+                bat 'start /B python app.py'
+                sleep time: 5, unit: 'SECONDS
             }
         }
 
         stage('Run Selenium Tests') {
             steps {
-                sh 'python test/test_ui.py'
+               bat 'python test\\test_ui.py'
             }
         }
     }
