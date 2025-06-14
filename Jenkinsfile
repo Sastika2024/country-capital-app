@@ -32,7 +32,10 @@ pipeline {
                 bat 'python tests\\test_app.py'
             }
         }
-
+	environment {
+        // Securely inject the Render deploy hook URL from Jenkins credentials
+        RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK')
+  	  }
         stage('Deploy to Render') {
             when {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
@@ -40,7 +43,7 @@ pipeline {
             steps {
                 echo '✅ All tests passed. Deploying to Render...'
                 
-                bat 'curl -X POST ${RENDER_DEPLOY_HOOK}'
+                bat 'curl -X POST "%RENDER_DEPLOY_HOOK%"'
             }
         }
     }
