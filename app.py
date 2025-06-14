@@ -2,25 +2,22 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-# ✅ Country to capital map
 capital_map = {
-    "India": "New Delhi",
-    "Australia": "Canberra",
-    "United States": "Washington, D.C.",
-    "France":"Paris",
-    "Japan": "Tokyo" # Added newly
+    'India': 'New Delhi',
+    'Australia': 'Canberra',
+    'United States': 'Washington, D.C.',
+    'France': 'Paris'
 }
 
-@app.route("/", methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    capital = ""
-    selected_country = ""
+    selected_country = None
+    capital = None
+    if request.method == 'POST':
+        selected_country = request.form['country']
+        capital = capital_map.get(selected_country, 'Not Found')
+    return render_template('index.html', countries=capital_map.keys(),
+                           selected_country=selected_country, capital=capital)
 
-    if request.method == "POST":
-        selected_country = request.form.get("country")
-        capital = capital_map.get(selected_country, "Unknown")
-
-    return render_template("index.html", capital=capital, countries=capital_map.keys(), selected=selected_country)
-
-if __name__ == "__main__":
-    app.run(port=5012, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=5012)

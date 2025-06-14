@@ -2,20 +2,23 @@
 <html>
 <head>
     <title>Country Capital Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Select a country</h2>
-    <form method="POST">
-        <select name="country">
-            {% for country in countries %}
-                <option value="{{ country }}" {% if selected == country %}selected{% endif %}>{{ country }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Show Capital</button>
-    </form>
+    <div class="container">
+        <h2>Select a Country</h2>
+        <form method="POST">
+            <select name="country">
+                {% for country in countries %}
+                    <option value="{{ country }}" {% if selected_country == country %}selected{% endif %}>{{ country }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Show Capital</button>
+        </form>
 
-    {% if capital %}
-        <h3>Capital: {{ capital }}</h3>
-    {% endif %}
+        {% if capital %}
+            <h3>Capital of {{ selected_country }} is <span class="highlight">{{ capital }}</span></h3>
+        {% endif %}
+    </div>
 </body>
 </html>
