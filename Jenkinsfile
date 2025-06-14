@@ -6,35 +6,49 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Clone Repo') {
             steps {
-                git credentialsId: '53d0f794-adf5-4752-b7a7-6232bbdb7e5e', url: 'https://github.com/Sastika2024/country-capital-app.git', branch: 'main'
+                git url: 'https://github.com/Sastika2024/country-capital-app.git',
+                    credentialsId: '53d0f794-adf5-4752-b7a7-6232bbdb7e5e',
+			branch: 'main'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                 bat 'pip install -r requirements.txt'
+                bat 'pip install -r requirements.txt'
             }
         }
 
         stage('Start Flask App') {
             steps {
                 bat 'start /B python app.py'
-                sleep time: 5, unit: 'SECONDS'
+                sleep(time: 5, unit: 'SECONDS') // wait for server to start
             }
         }
 
-        stage('Run Selenium Tests') {
+        stage('Run Selenium Test') {
             steps {
-               bat 'python test\\test_ui.py'
+                bat 'python test\\test_app.py'
+            }
+        }
+
+        stage('Deploy to Render') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
+            steps {
+                echo '✅ All tests passed. Deploying to Render...'
+                // Optional: auto-trigger a deploy via Render Deploy Hook
+                // Replace YOUR_DEPLOY_HOOK_URL with actual webhook from Render dashboard
+                sh 'curl -X POST https://api.render.com/deploy/YOUR_DEPLOY_HOOK_URL'
             }
         }
     }
 
     post {
-        always {
-            echo 'Pipeline finished'
+        failure {
+            echo '❌ Build or test failed.'
         }
     }
 }
