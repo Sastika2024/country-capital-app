@@ -6,7 +6,8 @@ app = Flask(__name__)
 capital_map = {
     "India": "New Delhi",
     "Australia": "Canberra",
-    "United States": "Washington, D.C."
+    "United States": "Washington, D.C.",
+    "France":"Paris" # Newly added on 14-06-25
 }
 
 @app.route("/", methods=["GET", "POST"])
