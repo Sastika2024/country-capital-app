@@ -2,34 +2,20 @@
 <html>
 <head>
     <title>Country Capital Finder</title>
-    <style>
-        body { font-family: Arial; padding: 20px; }
-        select, button { padding: 10px; margin-top: 10px; }
-        #capital { margin-top: 20px; font-weight: bold; }
-    </style>
 </head>
 <body>
-    <h2>Select a Country</h2>
-    <select id="country">
-        <option value="">--Select--</option>
-        <option value="India">India</option>
-        <option value="Australia">Australia</option>
-    </select>
-    <br>
-    <button onclick="showCapital()">Show Capital</button>
-    <div id="capital"></div>
+    <h2>Select a country</h2>
+    <form method="POST">
+        <select name="country">
+            {% for country in countries %}
+                <option value="{{ country }}" {% if selected == country %}selected{% endif %}>{{ country }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Show Capital</button>
+    </form>
 
-    <script>
-        function showCapital() {
-            const country = document.getElementById("country").value;
-            const capitalMap = {
-                "India": "New Delhi",
-                "Australia": "Canberra"
-            };
-
-            const capital = capitalMap[country] || "Capital not found";
-            document.getElementById("capital").innerText = "Capital: " + capital;
-        }
-    </script>
+    {% if capital %}
+        <h3>Capital: {{ capital }}</h3>
+    {% endif %}
 </body>
 </html>
