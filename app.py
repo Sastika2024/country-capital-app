@@ -6,7 +6,8 @@ capital_map = {
     'India': 'New Delhi',
     'Australia': 'Canberra',
     'United States': 'Washington, D.C.',
-    'France': 'Paris'
+    'France': 'Paris',
+    "Japan": "Tokyo"
 }
 
 @app.route('/', methods=['GET', 'POST'])
