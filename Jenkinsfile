@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         FLASK_PORT = "5012"
+	// Securely inject the Render deploy hook URL from Jenkins credentials
+        RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK')
     }
 
     stages {
@@ -32,10 +34,7 @@ pipeline {
                 bat 'python tests\\test_app.py'
             }
         }
-	environment {
-        // Securely inject the Render deploy hook URL from Jenkins credentials
-        RENDER_DEPLOY_HOOK = credentials('RENDER_DEPLOY_HOOK')
-  	  }
+	
         stage('Deploy to Render') {
             when {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
