@@ -21,7 +21,7 @@ pipeline {
         stage('Start Flask App') {
             steps {
                 bat 'start /B python app.py'
-                sleep time: 5, unit: 'SECONDS
+                sleep time: 5, unit: 'SECONDS'
             }
         }
 
