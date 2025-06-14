@@ -24,10 +24,10 @@ try:
     # Check capital
     capital_text = driver.find_element(By.XPATH, "/html/body/div/h3").text
     assert "Capital of India is New Delhi" in capital_text
-    print("✅ Test Passed: Capital displayed correctly")
+    print("Test Passed: Capital displayed correctly")
 
 except Exception as e:
-    print("❌ Test Failed:", str(e))
+    print("Test Failed:", str(e))
     raise
 
 finally:
