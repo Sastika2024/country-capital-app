@@ -40,7 +40,7 @@ pipeline {
             steps {
                 echo '✅ All tests passed. Deploying to Render...'
                 
-                bat 'curl -X POST https://api.render.com/deploy/srv-d16nq2fdiees73dcjof0?key=rF8eMKmXmhI'
+                bat 'curl -X POST ${RENDER_DEPLOY_HOOK}'
             }
         }
     }
