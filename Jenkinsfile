@@ -29,7 +29,7 @@ pipeline {
 
         stage('Run Selenium Test') {
             steps {
-                bat 'python test\\test_app.py'
+                bat 'python tests\\test_app.py'
             }
         }
 
