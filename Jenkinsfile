@@ -39,9 +39,8 @@ pipeline {
             }
             steps {
                 echo '✅ All tests passed. Deploying to Render...'
-                // Optional: auto-trigger a deploy via Render Deploy Hook
-                // Replace YOUR_DEPLOY_HOOK_URL with actual webhook from Render dashboard
-                sh 'curl -X POST https://api.render.com/deploy/YOUR_DEPLOY_HOOK_URL'
+                
+                bat 'curl -X POST https://api.render.com/deploy/srv-d16nq2fdiees73dcjof0?key=rF8eMKmXmhI'
             }
         }
     }
